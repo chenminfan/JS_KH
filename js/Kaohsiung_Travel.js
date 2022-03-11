@@ -30,23 +30,6 @@ var currentPage = 1;
 var popularAreaArray =[]
 
 
-//window.addEventListener('scroll', debounce(scrollBodythis, 5));
-
-//var windowBody = document.querySelector('body')
-//console.log(windowBody.offsetTop)
-//console.log(windowBody.clientHeight)
-//console.log(scrollBodyVar)
-//function scrollBodythis(){
-//	var scrollBodyVar = (windowBody.offsetTop) + (windowBody.clientHeight / 2)
-//	
-//	if(window.scrollY > scrollBodyVar){
-//		windowBody.classList.add('scrollBodyimg')
-//	}else{
-//		windowBody.classList.remove('scrollBodyimg')
-//	}
-//}
-
-
 // nav展開
 var navExpand = document.querySelector('.nav').querySelectorAll('.item');
 var navExpandLen = navExpand.length;
@@ -139,8 +122,6 @@ newItem.addEventListener('click', newKH, false);
 
 //TODO:公告
 function newKH(){
-	var newbox_KH = document.createElement('div')
-	newbox_KH.classList.add('boxcontainer','box_KH')
 	var scenicItem_area = document.querySelector('.box_area .scenic');
 	// 在表頭的部分印出
 	formBox.classList.add('newBox');
@@ -155,15 +136,6 @@ function newKH(){
 	}
 	if(boxContainerBody.children[0].nodeName !== 'UL'){
 		return reBoxprint()
-	}
-	if(boxContainerBody.parentNode.classList[2] !== 1){
-		newbox_kh(newbox_KH)
-		if(boxContainerBody.children[0].nodeName !== 'UL'){
-			reBoxprint()
-		}
-		changePage(1);
-	}else{
-		
 	}
 
 	
@@ -461,27 +433,6 @@ function newKH(){
 }
 newKH()
 
-
-function newbox_kh(newbox_KH){
-	if(boxContainerBody.parentNode.classList[1] == 'box_area'){
-		boxContainerBody.parentNode.parentNode.appendChild(newbox_KH)
-	}
-	newbox_KH.innerHTML = `<div class="head"></div>
-	<div class="body">
-		<ul class="scenic">
-		</ul>
-	</div>
-	<div class="foot">
-		<div class="pagebox">
-			<div class="page_pre"><a href="#"><i class="fas fa-angle-left"></i></a></div>
-			<ul class="page_num">
-			</ul>
-			<div class="page_next"><a href="#"><i class="fas fa-angle-right"></i></a></div>
-		</div>
-	</div>`
-	newbox_KH.children[0].textContent = '觀光遊高雄'
-	
-}
 // 亂數對應的區域
 function randomKharea(){
 	var randomscenicItem = document.querySelector('.scenic').querySelectorAll('.randomKh_item');
@@ -635,7 +586,7 @@ function printData(pageitemPint){
 	if(boxContainerBody.children[0].nodeName !== 'UL'){
 		reBoxprint();
 	}
-	var scenicItem = document.querySelectorAll('.scenic');
+	var scenicItem = document.querySelector('.scenic');
 	var print = '';
 	for(var i = 0;i < pageitemPint.length;i++){
 		var ketwordTimg = pageitemPint[i].Opentime
@@ -678,12 +629,8 @@ function printData(pageitemPint){
 	
 	// TODO:scenicKHItem
 	var scenicKHItem = document.querySelector('.scenic').querySelectorAll('.scenic_item');
-	var scenicKHItem =  document.getElementsByClassName("scenic");
 	for(var i = 0;i<scenicKHItem.length;i++){
 		scenicKHItem[i].addEventListener('click',function (e) {
-		// if(e == ){
-			
-			// }
 			console.log(this.children[0].dataset.name)
 			var scenicName = this.children[0].dataset.name;
 			scenicKH(scenicName)
@@ -696,11 +643,15 @@ function scenicKH(scenicName){
 	formBox.classList.add('scenicBox');
 	formBox.classList.remove('areaBox','scenicBox');
 	formBox.classList.remove('foot')
-	// boxContainerFoot.style.display = 'none';
+	boxContainerFoot.style.display = 'none';
 	var print = '';
 	for(var i = 0;i < khDataLen;i++){
 		var name = khTravelDataArray[i].Name;
 		if(name == scenicName){
+			var bartool = document.createElement("div");
+			boxContainer.append(bartool);
+			console.log(bartool.classList.add('bartool'))
+			bartool.innerHTML = `<span class="btn btn-back">上一頁</span>`;
 			boxContainer.children[0].textContent = khTravelDataArray[i].Name;
 			print +=
 			`<div class="info_box img_box">
@@ -749,7 +700,6 @@ function scenicKH(scenicName){
 		}
 	}
 	boxContainerBody.innerHTML = print;
-
 	var titleAreaClick = document.querySelector('.title')
 	var titleArea = titleAreaClick.textContent
 	titleAreaClick.addEventListener('click',function(e){
@@ -791,9 +741,6 @@ function pageAverage(){
 // TODO:[操作]首頁
 KHtravel.addEventListener('click',indexHome,false);
 function indexHome(){
-	var newbox_KH = document.querySelector('.box_KH');
-	newbox_KH.remove('box_area')
-	console.log(newbox_KH)
 	boxContainer.classList.remove('box_area')
 	areaTemp = khTravelDataArray
 	pageAverage(areaTemp)

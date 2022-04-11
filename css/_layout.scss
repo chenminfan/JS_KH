@@ -1,0 +1,23 @@
+.footer {
+  padding: 9px;
+  max-height: 90px;
+  text-align: center;
+  background: $color_lightblue;
+
+  > ul {
+    margin: 15px;
+    font-size: 14px;
+
+    > li {
+      line-height: 14px;
+    }
+  }
+
+  .copyright > li {
+    color: $color_white;
+  }
+
+  .source > li {
+    color: $color_lightyellow;
+  }
+}

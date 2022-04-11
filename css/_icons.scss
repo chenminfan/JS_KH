@@ -1,0 +1,247 @@
+.boxcontainer {
+  > .head {
+    &::before {
+      content: "\f292";
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 900;
+      margin-right: 10px;
+    }
+  }
+}
+.fas {
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.info_box {
+  .fas {
+    margin: 5px 10px 5px 5px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    color: $color_darkprimary;
+    font-size: 14px;
+  }
+}
+.scenic_item {
+  .fas {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.pagebox {
+  .fas {
+    margin-right: auto;
+  }
+}
+
+.wticons {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.wticons::before {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  padding-top: 100%;
+}
+
+.wt {
+  &_1::before {
+    background: url("https://khh.travel/content/images/weather/wt-01.svg");
+    background-size: contain;
+  }
+
+  &_2::before {
+    background: url("https://khh.travel/content/images/weather/wt-02.svg");
+    background-size: contain;
+  }
+
+  &_3::before {
+    background: url("https://khh.travel/content/images/weather/wt-03.svg");
+    background-size: contain;
+  }
+
+  &_4::before {
+    background: url("https://khh.travel/content/images/weather/wt-04.svg");
+    background-size: contain;
+  }
+
+  &_5::before {
+    background: url("https://khh.travel/content/images/weather/wt-05.svg");
+    background-size: contain;
+  }
+
+  &_6::before {
+    background: url("https://khh.travel/content/images/weather/wt-06.svg");
+    background-size: contain;
+  }
+
+  &_7::before {
+    background: url("https://khh.travel/content/images/weather/wt-07.svg");
+    background-size: contain;
+  }
+
+  &_8::before {
+    background: url("https://khh.travel/content/images/weather/wt-08.svg");
+    background-size: contain;
+  }
+
+  &_9::before {
+    background: url("https://khh.travel/content/images/weather/wt-09.svg");
+    background-size: contain;
+  }
+
+  &_10::before {
+    background: url("https://khh.travel/content/images/weather/wt-10.svg");
+    background-size: contain;
+  }
+
+  &_11::before {
+    background: url("https://khh.travel/content/images/weather/wt-11.svg");
+    background-size: contain;
+  }
+
+  &_12::before {
+    background: url("https://khh.travel/content/images/weather/wt-12.svg");
+    background-size: contain;
+  }
+
+  &_13::before {
+    background: url("https://khh.travel/content/images/weather/wt-13.svg");
+    background-size: contain;
+  }
+
+  &_14::before {
+    background: url("https://khh.travel/content/images/weather/wt-14.svg");
+    background-size: contain;
+  }
+
+  &_15::before {
+    background: url("https://khh.travel/content/images/weather/wt-15.svg");
+    background-size: contain;
+  }
+
+  &_16::before {
+    background: url("https://khh.travel/content/images/weather/wt-16.svg");
+    background-size: contain;
+  }
+
+  &_17::before {
+    background: url("https://khh.travel/content/images/weather/wt-17.svg");
+    background-size: contain;
+  }
+
+  &_18::before {
+    background: url("https://khh.travel/content/images/weather/wt-18.svg");
+    background-size: contain;
+  }
+
+  &_19::before {
+    background: url("https://khh.travel/content/images/weather/wt-19.svg");
+    background-size: contain;
+  }
+
+  &_20::before {
+    background: url("https://khh.travel/content/images/weather/wt-20.svg");
+    background-size: contain;
+  }
+
+  &_21::before {
+    background: url("https://khh.travel/content/images/weather/wt-21.svg");
+    background-size: contain;
+  }
+
+  &_22::before {
+    background: url("https://khh.travel/content/images/weather/wt-22.svg");
+    background-size: contain;
+  }
+
+  &_23::before {
+    background: url("https://khh.travel/content/images/weather/wt-23.svg");
+    background-size: contain;
+  }
+
+  &_24::before {
+    background: url("https://khh.travel/content/images/weather/wt-24.svg");
+    background-size: contain;
+  }
+
+  &_25::before {
+    background: url("https://khh.travel/content/images/weather/wt-25.svg");
+    background-size: contain;
+  }
+
+  &_26::before {
+    background: url("https://khh.travel/content/images/weather/wt-26.svg");
+    background-size: contain;
+  }
+
+  &_27::before {
+    background: url("https://khh.travel/content/images/weather/wt-27.svg");
+    background-size: contain;
+  }
+
+  &_28::before {
+    background: url("https://khh.travel/content/images/weather/wt-28.svg");
+    background-size: contain;
+  }
+
+  &_29::before {
+    background: url("https://khh.travel/content/images/weather/wt-29.svg");
+    background-size: contain;
+  }
+
+  &_30::before {
+    background: url("https://khh.travel/content/images/weather/wt-30.svg");
+    background-size: contain;
+  }
+
+  &_31::before {
+    background: url("https://khh.travel/content/images/weather/wt-31.svg");
+    background-size: contain;
+  }
+
+  &_32::before {
+    background: url("https://khh.travel/content/images/weather/wt-32.svg");
+    background-size: contain;
+  }
+
+  &_33::before {
+    background: url("https://khh.travel/content/images/weather/wt-33.svg");
+    background-size: contain;
+  }
+
+  &_34::before {
+    background: url("https://khh.travel/content/images/weather/wt-34.svg");
+    background-size: contain;
+  }
+
+  &_35::before {
+    background: url("https://khh.travel/content/images/weather/wt-35.svg");
+    background-size: contain;
+  }
+
+  &_36::before {
+    background: url("https://khh.travel/content/images/weather/wt-36.svg");
+    background-size: contain;
+  }
+
+  &_37::before {
+    background: url("https://khh.travel/content/images/weather/wt-37.svg");
+    background-size: contain;
+  }
+
+  &_38::before {
+    background: url("https://khh.travel/content/images/weather/wt-38.svg");
+    background-size: contain;
+  }
+
+  &_39::before {
+    background: url("https://khh.travel/content/images/weather/wt-39.svg");
+    background-size: contain;
+  }
+}

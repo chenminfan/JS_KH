@@ -1,0 +1,30 @@
+body {
+  height: 100vh;
+  color: #333;
+  font: 16px/1.4 Arial, sans-serif, "Microsoft JhengHei";
+  background: url("../images/the-urban-landscape-1698285.png") repeat-y;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+.alink {
+  color: $color_darkred;
+}
+img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  max-width: 100%;
+  width: 100%;
+  margin: auto;
+}
+p {
+  line-height: 1.5;
+}

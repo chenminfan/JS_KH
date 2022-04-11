@@ -1,0 +1,739 @@
+.KH_travel {
+  padding: 20px 0 10px;
+
+  a {
+    display: inline-flex;
+    margin: auto;
+    width: 180px;
+    height: 55px;
+    background: url("https://khh.travel/Content/images/global/main-logo-white.png")
+      no-repeat;
+    background-size: auto 100%;
+    text-indent: -9999px;
+    overflow: hidden;
+  }
+
+  &::before {
+    content: "";
+    display: inline-flex;
+    clear: both;
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+
+  > .item {
+    border: 1px solid transparent;
+    border-radius: 10px;
+  }
+
+  .item > a {
+    display: inline-flex;
+    justify-content: center;
+    width: 155px;
+    padding: 7px 5px;
+    color: $color_white;
+    font-size: $font-20;
+    text-align: center;
+  }
+  .actived:not(.hotItem) > a + .expand {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 144px;
+    left: 0;
+    right: 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: $color_black;
+
+    z-index: 2;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+
+    &::after {
+      content: "\f0d8";
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 900;
+      font-size: 30px;
+      margin-left: 80px;
+      display: inline-flex;
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      color: $color_black;
+
+      transform: translateX(-50%);
+    }
+  }
+}
+
+.navArea {
+  .areaItem {
+    margin: 3px 8px;
+    .btn-area {
+    }
+  }
+}
+.hotItem {
+  .areaItem {
+    margin: 0 11px;
+  }
+}
+.nav .hotItem {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  position: absolute;
+  top: 352px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 800px;
+  padding: 18px $font-26;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  background: $color_white;
+  text-align: left;
+
+  > span {
+    margin-bottom: 14px;
+    font-size: 18px;
+    color: $color_black;
+    line-height: 1.6;
+  }
+
+  .box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+    margin: 0 -11px;
+    overflow: hidden;
+  }
+}
+
+.weather {
+  margin: 37px auto;
+  padding: 10px;
+  max-width: 1024px;
+  border-radius: 5px;
+  background: $color_lightgre2;
+  text-align: center;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  .title {
+    flex: 0 0 100%;
+    margin: 10px 0;
+    font-size: $font-20;
+    font-weight: bold;
+  }
+  .container {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    > dl {
+      margin-left: 20px;
+      min-width: 200px;
+      max-width: 300px;
+    }
+    dl {
+      display: inline-flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-items: center;
+      font-size: $font-14;
+      dt {
+        padding: 5px 0;
+        color: $color_bluegreen;
+        font-size: $font-16;
+        font-weight: bold;
+      }
+    }
+
+    ul {
+      display: inline-flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      width: 500px;
+    }
+
+    ul > li dl {
+      padding: 0 10px;
+      text-align: center;
+    }
+
+    .Exposure {
+      height: auto;
+      text-align: left;
+    }
+  }
+}
+
+.boxcontainer {
+  position: relative;
+  margin-bottom: 44px;
+  > .head {
+    display: inline-flex;
+    position: relative;
+    left: 50%;
+    margin: 0 0 20px;
+    padding: 12px 10px;
+    transform: translateX(-50%);
+    font-size: $font-36;
+    font-weight: bold;
+    text-align: center;
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: inline-flex;
+      left: 0;
+      bottom: 12px;
+      width: 100%;
+      height: 18px;
+      background: $color_lightgrey;
+      z-index: -1;
+    }
+  }
+  .scenic {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.line {
+  position: relative;
+  margin: 37px 0;
+  border-top: 1px dashed $color_lightblue;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-top: -12px;
+    transform: translateX(-50%);
+    color: $color_lightblue;
+    text-align: center;
+  }
+
+  &::before {
+    width: 24px;
+    height: 24px;
+    border: 1px solid $color_lightblue;
+    border-radius: 100%;
+    background: $color_white;
+    box-sizing: border-box;
+  }
+
+  &::after {
+    content: "\f0d7";
+    margin-top: -18px;
+    font-family: "Font Awesome 5 Pro";
+    font-size: $font-26;
+    font-weight: 900;
+    display: inline-flex;
+  }
+}
+.newBox {
+  .scenic_warp {
+    figcaption {
+      font-size: $font-28;
+      font-weight: bold;
+    }
+  }
+}
+
+.areaBox {
+  .boxcontainer {
+    > .body {
+      margin-bottom: 40px;
+    }
+
+    .img_box {
+      height: 300px;
+      border-radius: 10px;
+      background: linear-gradient(
+        to top,
+        #000 0,
+        rgba(0, 0, 0, 0.738) 19%,
+        rgba(0, 0, 0, 0.541) 34%,
+        rgba(0, 0, 0, 0.382) 47%,
+        rgba(0, 0, 0, 0.278) 56.5%,
+        rgba(0, 0, 0, 0.194) 65%,
+        rgba(0, 0, 0, 0.126) 73%,
+        rgba(0, 0, 0, 0.075) 80.2%,
+        rgba(0, 0, 0, 0.042) 86.1%,
+        rgba(0, 0, 0, 0.021) 91%,
+        rgba(0, 0, 0, 0.008) 95.2%,
+        rgba(0, 0, 0, 0.002) 98.2%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    }
+  }
+  .scenic_warp {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 360px;
+  }
+  .scenic_item {
+    figcaption {
+      display: flex;
+      top: auto;
+      bottom: 14px;
+      left: 22px;
+      right: 22px;
+    }
+  }
+}
+
+.pagebox {
+  text-align: center;
+}
+
+.scenic_warp {
+  > .box {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: left;
+  }
+  figure {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .toldescribe {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .toldescribe {
+    color: $color_darkgrey2;
+  }
+}
+
+.scenic_item {
+  width: calc(100% / 4 - 16px);
+  margin: 18px 8px;
+  font-size: $font-16;
+  border: 2px solid $color_lightgre2;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+  .head {
+    font-size: $font-20;
+    font-weight: bold;
+
+    &:hover .head {
+      color: $color_darkred;
+    }
+  }
+
+  .body {
+    margin: 12px 0 0;
+
+    ul > li:not(.toldescribe) {
+      color: $color_darkred;
+    }
+
+    ul > li + li {
+      margin-top: 5px;
+    }
+  }
+  img,
+  figcaption {
+    position: absolute;
+    opacity: 0.8;
+  }
+  figcaption {
+    top: 50%;
+    right: 0;
+    left: 0;
+    color: $color_white;
+    font-size: $font-24;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+    z-index: 1;
+    letter-spacing: 2px;
+  }
+  &:nth-child(even) {
+    background: $color_lightgre2;
+  }
+  &:hover {
+    img {
+      opacity: 1;
+    }
+    border: 2px solid $color_darkred;
+    transition: border 0.35s;
+    figcaption {
+      color: $color_lightprimary;
+    }
+  }
+}
+.randomKh_item {
+  width: calc(100% / 3 - 16px);
+  margin: 8px;
+  text-align: center;
+  figcaption {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    transform: translateY(-50%);
+  }
+  > a,
+  .scenic_warp figure {
+    height: 130px;
+  }
+}
+
+.scenic_title {
+  display: inline-flex;
+  height: 32px;
+  line-height: 32px;
+}
+
+.scenic_area {
+  font-size: $font-16;
+  text-align: right;
+}
+
+.info_box .head,
+.area_box a .title {
+  font-size: $font-20;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.info_box {
+  .head {
+    margin-bottom: 5px;
+
+    > a {
+      display: flex;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.area_box {
+  .img_box {
+    width: 100%;
+    text-align: center;
+  }
+
+  a {
+    display: inline-flex;
+    margin-right: 50px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+
+    .title::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: calc(100% + 70px);
+      height: 15px;
+      transform: translateX(-50%);
+      background: $color_lightgre3;
+      z-index: -1;
+    }
+  }
+}
+
+.area_box,
+.area_box .img_box {
+  height: 230px;
+}
+
+.area_box,
+.area_box a .title {
+  position: relative;
+}
+
+.area_box a,
+.area_box .img_box {
+  position: absolute;
+  padding: 0;
+}
+
+.area_box a > i,
+.area_box a > .title {
+  color: $color_darkred;
+  vertical-align: middle;
+}
+
+.scenicBox {
+  .boxcontainer {
+    > .body {
+      position: relative;
+      min-height: calc(100vh - 220px);
+      margin: 0 20px;
+      padding: 10px;
+      background: $color_lightgre3;
+      border-radius: 20px;
+    }
+
+    img {
+      border-radius: 10px;
+    }
+
+    .body > .img_box figcaption {
+      color: $color_darkgrey;
+      font-size: $font-16;
+    }
+  }
+}
+
+.scenicBox .boxcontainer img,
+.scenicBox .boxcontainer figcaption {
+  position: static;
+}
+.form:not(.newBox) {
+  .info_box.img_box {
+    > .body {
+      display: inline-flex;
+      flex-direction: column;
+      img {
+        position: inherit;
+      }
+    }
+  }
+  .box_area {
+    > .body {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+.img_box {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 600px;
+  overflow: hidden;
+
+  figure + .head {
+    margin-top: 15px;
+  }
+}
+
+.info_box,
+.img_box {
+  vertical-align: top;
+}
+
+.info_box {
+  position: relative;
+  padding: 10px;
+  text-align: left;
+
+  > .body {
+    font-size: $font-16;
+
+    > p {
+      margin-bottom: 10px;
+    }
+
+    a {
+      display: inline-flex;
+      padding: 3px 5px;
+      border: 1px solid $color_lightgrey;
+      border-radius: 5px;
+    }
+  }
+
+  .body > .img_box {
+    text-align: center;
+  }
+
+  .khTravelDataArray {
+    width: 250px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+.info {
+  margin-bottom: 5px;
+
+  dt,
+  dd {
+    display: inline-flex;
+    vertical-align: top;
+    min-height: 25px;
+  }
+
+  dt {
+    width: 100px;
+    font-weight: bold;
+    color: $color_darkgrey;
+    text-align: right;
+  }
+
+  dd {
+    margin-left: 10px;
+    width: calc(100% - 120px);
+  }
+}
+
+.info_box:not(.img_box) {
+  text-align: left;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 20px 10px;
+  width: calc(100% - 650px);
+  border: 1px solid $color_lightgrey;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 1023px) {
+  .form .header {
+    max-width: 800px;
+  }
+
+  .scenic > li {
+    width: calc(100% / 2 - 20px);
+  }
+
+  .weather {
+    max-width: 800px;
+  }
+
+  .weather ul + dl {
+    max-width: 320px;
+    height: auto;
+  }
+
+  .item .box > li {
+    width: 130px;
+  }
+  .KH_travel,
+  .form .nav {
+    display: flex;
+  }
+
+  .form {
+    .header {
+      max-width: 700px;
+    }
+
+    .nav {
+      width: auto;
+      padding: 0;
+      text-align: center;
+    }
+  }
+
+  .scenic_warp > .box {
+    width: 100%;
+  }
+
+  .areaBox .boxcontainer .scenic .scenic_item {
+    background: $color_white;
+  }
+
+  .weather {
+    .container {
+      flex-direction: column;
+      align-items: center;
+      dl {
+        margin-left: 0;
+        margin-top: 6px;
+      }
+    }
+  }
+  .weather ul > li dl {
+    padding: 0;
+  }
+
+  .weather ul + dl {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .weather ul > li dl {
+    padding: 0;
+    font-size: $font-14;
+  }
+
+  .weather ul > li dl dt > span:nth-child(2) {
+    display: none;
+  }
+
+  .weather ul > li dl {
+    margin: 0 10px;
+  }
+
+  .item .box > li {
+    width: 106px;
+  }
+
+  .scenic .randomKh_item .scenic_warp figure {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .form {
+    .header {
+      padding: 5px;
+    }
+
+    .nav .item > a {
+      width: auto;
+    }
+  }
+
+  .weather {
+    margin: 10px;
+  }
+
+  .weather ul,
+  .weather ul li,
+  .weather ul li + li > dl,
+  .weather ul + dl {
+    display: flex;
+    text-align: center;
+  }
+
+  .weather dl {
+    text-align: center;
+  }
+
+  .scenic .scenic_item {
+    display: flex;
+    width: auto;
+  }
+
+  .weather ul li + li,
+  .weather ul + dl {
+    padding: 10px 0;
+    border-top: 1px solid $color_lightgrey;
+  }
+
+  .weather ul + dl {
+    max-width: none;
+    margin: 0;
+  }
+
+  .scenic .randomKh_item .scenic_warp figure {
+    width: 100%;
+  }
+}

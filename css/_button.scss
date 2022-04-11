@@ -1,0 +1,126 @@
+.btn {
+  display: inline-block;
+  min-width: 95px;
+  color: $color_white;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  text-align: center;
+  background: $color_black;
+  vertical-align: middle;
+  cursor: pointer;
+  &:hover {
+    color: $color_primary;
+    border: 1px solid $color_primary;
+  }
+}
+.hotItem {
+  .areaItem {
+    .btn-area {
+      padding: 6px 34px;
+    }
+    &:nth-child(4n + 1) {
+      a {
+        background: $color_purpleli;
+      }
+    }
+
+    &:nth-child(4n + 2) {
+      a {
+        background: $color_lightorange;
+      }
+    }
+
+    &:nth-child(4n + 3) {
+      a {
+        background: $color_lightyellow;
+      }
+    }
+
+    &:nth-child(4n + 4) {
+      a {
+        background: $color_lightblue;
+      }
+    }
+    &:hover {
+      border-color: $color_darkred;
+      a {
+        background: $color_white;
+        color: $color_darkred;
+      }
+    }
+  }
+}
+.page {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.page_num {
+  li,
+  li a {
+    @extend .page;
+  }
+}
+
+[class*="page_"] {
+  @extend .page;
+
+  > a {
+    margin: 0 5px;
+    font-size: 14px;
+    @extend .page;
+    @extend .page_num---a;
+  }
+
+  &:hover {
+    a {
+      color: $color_primary;
+      border-color: $color_primary;
+    }
+
+    a.disabled {
+      border: 1px solid $color_lightgrey;
+    }
+  }
+
+  > a.disabled {
+    color: $color_lightgrey;
+    cursor: default;
+  }
+}
+
+.page_num {
+  li {
+    margin: 0 5px;
+    font-size: 14px;
+
+    a,
+    .page_num---a {
+      padding: 4px 2px;
+      width: 30px;
+      height: 30px;
+      color: $color_darkgrey;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.5;
+      border: 1px solid $color_lightgrey;
+      border-radius: 5px;
+    }
+
+    a:hover {
+      color: $color_primary;
+    }
+  }
+
+  li:hover a,
+  li.now a {
+    border-color: $color_primary;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .hotItem .areaItem .btn-area {
+    padding: 10px;
+  }
+}

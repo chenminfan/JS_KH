@@ -13,7 +13,7 @@ let boxContainerFoot = document.querySelector(".boxcontainer .foot");
 let scenicItem = document.querySelector(".scenic");
 let newItem = document.querySelector(".newItem");
 let navArea = document.querySelector(".navArea");
-let popularAreas = document.querySelector(".hotItem .box");
+let hotArea = document.querySelector(".hotAreaBox");
 let pageBox = document.querySelector(".pagebox");
 let pagePre = document.querySelector(".page_pre");
 let pageNext = document.querySelector(".page_next");
@@ -69,7 +69,7 @@ function areaFilter() {
 	// areaTemp = khTravelDataArray;
 
 	// 區域篩選
-	let areafilter = [];
+	let areafilterArray = [];
 	for (let i = 0; i < khDataLen; i++) {
 		// console.log(area)
 		let area = khTravelDataArray[i].Add.substr(6, 3);
@@ -77,20 +77,19 @@ function areaFilter() {
 			area = area + "區";
 		}
 		// 將篩選的資料推上陣列
-		areafilter.push(area);
+		areafilterArray.push(area);
 		// 新增資料回陣列
 		khTravelDataArray[i]["Area"] = area;
 	}
 	// TODO:拉出for迴圈
-	// [ES6刪除重複項目]，let areaArray = [...new Set(areafilter)];
+	// [ES6刪除重複項目]，let areaArray = [...new Set(areafilterArray)];
 	// [js Array.filter() 陣列中刪除重複的內容]
-	let areaArray = areafilter.filter(function (ele, pos) {
-		return areafilter.indexOf(ele) === pos;
+	let areaArray = areafilterArray.filter(function (ele, pos) {
+		return areafilterArray.indexOf(ele) === pos;
 	});
 	let printArea = "";
-	// TODO:修正 第 108 至 114 行建議統整為
 	for (let i = 0; i < areaArray.length; i++) {
-		printArea += `<li class="areaItem"><a class="btn btn-area" href="#">${areaArray[i]}</a></li>`;
+		printArea += `<div class="areaItem"><a class="btn btn-area" href="#">${areaArray[i]}</a></div>`;
 		popularAreaArray.push({ area: areaArray[i], frequency: 0 });
 	}
 	navArea.innerHTML = printArea;
@@ -101,22 +100,22 @@ areaFilter();
 newItem.addEventListener('click', newKH);
 
 //公告
+// TODO:已調整，變數 boxContainer 等同於變數 newbox_area
 function newKH() {
 	// 在表頭的部分印出
 	formBox.classList.add("newBox");
 	formBox.classList.remove("areaBox", "scenicBox");
-	let newbox_area = document.querySelector(".newBox .boxcontainer");
 	// 區域
-	newbox_area.children[0].textContent = "區域觀光遊高雄";
+	boxContainer .children[0].textContent = "區域觀光遊高雄";
 	weatherBox.style.display = "block";
-
+	
 	if (boxContainerFoot.style.display !== "none") {
 		boxContainerFoot.style.display = "none";
 	}
 	if (boxContainerBody.children[0].nodeName !== "UL") {
 		return reBoxprint();
 	}
-
+	
 	if (scenicItem === scenicItem) {
 		// 給新的陣列
 		let randomKh = [];
@@ -132,9 +131,9 @@ function newKH() {
 		// 不重複區域
 		let set = new Set();
 		let randomKhResult = randomKh.filter((item) =>
-			!set.has(item.Area) ? set.add(item.Area) : false
+		!set.has(item.Area) ? set.add(item.Area) : false
 		);
-
+		
 		// 印出
 		let print = "";
 		let randomKhLen = randomKhResult.length;
@@ -152,11 +151,308 @@ function newKH() {
 			// TODO:拉出for迴圈
 			scenicItem.innerHTML = print;
 		}
-		scenicKHitem();
+		onScenicItem();
 		
 	}
 }
 newKH();
+
+
+function areaKH(randomarea) {
+	areaTemp = [];
+	// 點擊完判斷區域回傳
+	for (let i = 0; i < khDataLen; i++) {
+		let area = khTravelDataArray[i].Area;
+		if (area === randomarea) {
+			areaTemp.push(khTravelDataArray[i]);
+		}
+	}
+	boxContainer.children[0].textContent = randomarea;
+	formBox.classList.add("areaBox");
+	formBox.classList.remove("newBox");
+	// // 點擊區域渲染
+	changePage(1);
+	pageAverage(areaTemp);
+
+}
+
+//點擊區域累加次數
+function popularHotArea(popo) {
+	// 假設點擊率
+	// console.log(popo)
+	// popularAreaArray[1].frequency = 15;
+	// popularAreaArray[2].frequency = 10;
+	// popularAreaArray[3].frequency = 830;
+	popularAreaArray[9].frequency = 90;
+	popularAreaArray[10].frequency = 530;
+	popularAreaArray[12].frequency = 5630;
+	popularAreaArray[14].frequency = 20;
+	popularAreaArray[15].frequency = 88;
+	popularAreaArray[23].frequency = 750;
+	popularAreaArray[25].frequency = 588;
+	popularAreaArray[28].frequency = 25;
+	// popularAreaArray[32].frequency = 65;
+	// popularAreaArray[35].frequency = 45;
+	popularAreaArray[37].frequency = 888;
+
+	// 針對名字排序
+	let frequencyAdd = 0;
+	frequencyAdd++;
+	// console.log(popularAreaArray)
+	for (let i = 0; i < popularAreaArray.length; i++) {
+		// console.log(popo === popularAreaArray[i].area)
+		// console.log(popularAreaArray)
+		if (popo === popularAreaArray[i].area) {
+			popularAreaArray[i]["frequency"] += frequencyAdd;
+		}
+		
+	}
+}
+
+// [熱門行政區]，點擊率高的區域印出
+function hotPrint() {
+	popularHotArea();
+	// console.log(popularAreaArray)
+	let hotprintArea = "";
+	for (let i = 0; i < popularAreaArray.length && i < 5; i++) {
+		popularAreaArray = popularAreaArray.sort(function (a, b) {
+			// 針對顯示前八筆的點擊數，依名字排序
+			// if(popularAreaArray.length && i < 6){
+			// 	var nameA = a.area.toUpperCase(); // ignore upper and lowercase
+			// 	var nameB = b.area.toUpperCase(); // ignore upper and lowercase
+
+			// 	if (nameA < nameB) {
+			// 	return -1;
+			// 	}
+			// 	if (nameA > nameB) {
+			// 	return 1;
+			// 	}
+			// }
+			// 針對數字大小
+			return b.frequency - a.frequency;
+		});
+		
+		hotprintArea += `<div class="areaItem hotAreaItem"><a class="btn btn-hot" href="#">${popularAreaArray[i].area}</a></div>`;
+	}
+	hotArea.innerHTML = hotprintArea;
+}
+hotPrint();
+// 點擊區域
+function areaAlinkClick() {
+	// 針對每一個區域宣告
+	let areaLiAlink = document.querySelectorAll(".areaItem");
+	// console.log(areaLiAlink)
+	for (let i = 0; i < areaLiAlink.length; i++) {
+		areaLiAlink[i].addEventListener('click', function (e) {
+			// 判斷DOM的結構
+			if (e.target.nodeName !== "A") {
+				return;
+			}
+			e.preventDefault();
+			
+
+			// 在表頭的部分印出
+			formBox.classList.add("areaBox");
+			formBox.classList.remove("newBox");
+
+			boxContainer = document.querySelector(".areaBox .boxcontainer");
+			boxContainer.children[0].textContent = e.target.textContent;
+			areaTemp = [];
+			// 點擊完判斷區域回傳
+			for (let i = 0; i < khDataLen; i++) {
+				let area = khTravelDataArray[i].Area;
+				if (area === e.target.textContent) {
+					areaTemp.push(khTravelDataArray[i]);
+				}
+			}
+			let popo = e.target.textContent;
+			popularHotArea(popo);
+			// 點擊區域渲染
+			changePage(1);
+			
+			pageAverage(areaTemp);
+			
+		});
+	}
+	
+}
+areaAlinkClick();
+// 判斷結構
+function reBoxprint() {
+	// 判斷結構回傳function
+	// if (boxContainerBody.children[0].nodeName !== "UL"){
+	// 	boxContainerBody.innerHTML = `<ul class="scenic"></ul>`;
+	// }else 
+	if (boxContainer.classList[1] === "newbox") {
+		newKH();
+	} else if (scenicItem.nodeName === "UL") {
+		changePage(1);
+	} else if (pageBox.nodeName === "DIV") {
+		pageAverage(areaTemp);
+	} 
+	boxContainerFoot.innerHTML = `<div class="pagebox">
+		<div class="page_pre"><a href="#"><i class="fas fa-angle-left"></i></a></div>
+		<ul class="page_num"></ul>
+		<div class="page_next"><a href="#"><i class="fas fa-angle-right"></i></a></div>
+	</div>`;
+
+	
+}
+
+// 對應的區域
+// TODO:不建議函式、變數、參數使用相同名稱，導致增加維護上的困難度。
+function onScenicItem(){
+	
+	let scenicKHItem = document.querySelectorAll(".scenic .scenic_item");
+	scenicKHItem.forEach(scenicKHItem => scenicKHItem.addEventListener('click',function(e){
+		e.preventDefault();
+		if(this.classList[1] === 'randomKh_item'){
+			let randomarea = this.innerText;
+			areaKH(randomarea);
+		}else{
+			// console.log(this.children[0].dataset.name);
+			let scenicName = this.children[0].dataset.name;
+			scenicKH(scenicName);
+		}
+	}))
+}
+// 印出區域資料
+function printData(pageitemPint) {
+	if (boxContainerBody.children[0].nodeName !== "UL") {
+		reBoxprint();
+	}
+	let print = "";
+	for (let i = 0; i < pageitemPint.length; i++) {
+		let ketwordTimg = pageitemPint[i].Opentime;
+		// 關鍵字取代
+		let ketword1 = ["全天候開放"];
+		for (let j = 0; j < 10; j++) {
+			if (ketwordTimg.indexOf(ketword1[j]) !== -1) {
+				ketwordTimg = ketword1[0];
+			} else if (ketwordTimg.length > 40) {
+				ketwordTimg = "詳請景點內介紹";
+			}
+		}
+		let ketwordName = pageitemPint[i].Name;
+		// console.log(ketwordName)
+		ketwordName = ketwordName.replace(
+			/[\ |\~|\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\,|\<|\.|\>|\/|\?]/g,
+			""
+		);
+		// 點擊回傳
+		print += 
+		`<li class="scenic_item">
+			<a href="#" data-name='${pageitemPint[i].Name}'>
+				<div class="scenic_warp">
+					<figure>
+						<figcaption><div class="scenic_title">${ketwordName}</div><span class="scenic_area">${pageitemPint[i].Area}</span></figcaption>
+						<img src="${pageitemPint[i].Picture1}" alt="${pageitemPint[i].Picdescribe1}" title="${pageitemPint[i].Name}">
+					</figure>
+					<div class="box">
+						<div class="head"><i class="fas fa-crosshairs"></i>${pageitemPint[i].Name}</div>
+						<div class="body">
+							<ul>
+								<li>${ketwordTimg}</li>
+								<li class="toldescribe">${pageitemPint[i].Toldescribe}</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</a>
+		</li>`;
+	}
+
+	scenicItem.innerHTML = print;
+	onScenicItem();
+}
+
+// 單個景點資料
+function scenicKH(scenicName) {
+	formBox.classList.add("scenicBox");
+	formBox.classList.remove("areaBox", "scenicBox");
+	formBox.classList.remove("foot");
+	boxContainerFoot.style.display = "none";
+	let print = "";
+	for (let i = 0; i < khDataLen; i++) {
+		let name = khTravelDataArray[i].Name;
+		if (name === scenicName) {
+			boxContainer.children[0].textContent = khTravelDataArray[i].Name;
+			print += `<div class="info_box img_box">
+				<div class="head"><i class="fas fa-info-circle"></i>景點介紹</div>
+				<div class="body">
+					<p>${khTravelDataArray[i].Toldescribe}</p>
+					<figure>
+						<img src="${khTravelDataArray[i].Picture1}" alt="${khTravelDataArray[i].Picdescribe1}" title="${khTravelDataArray[i].Name}">
+						<figcaption><i class="fas fa-images"></i>${khTravelDataArray[i].Picdescribe1}</figcaption>
+					</figure>
+				</div>
+				
+			</div>
+			<div class="info_box">
+				<div class="area_box">
+					<a href="#"><i class="fas fa-chevron-circle-left"></i><span class="title">${khTravelDataArray[i].Area}</span></a>
+					<div class="info_box img_box"><img class="khTravelDataArray" src="https://khh.travel/content/images/content/region/region-map-${khTravelDataArray[i].Zipcode}.png" alt="${khTravelDataArray[i].Area}" title="${khTravelDataArray[i].Area}"></div>
+				</div>
+				
+				<div class="head">相關資訊</div>
+				<div class="body">
+					<dl class="info">
+						<dt><i class="fas fa-clock"></i>營業時間</dt>
+						<dd>${khTravelDataArray[i].Opentime}</dd>
+					</dl>
+					<dl class="info">
+						<dt><i class="fas fa-map-marker-alt"></i>地址</dt>
+						<dd><a href="https://www.google.com.tw/maps/place/${khTravelDataArray[i].Py},${khTravelDataArray[i].Px}" target="_blank"><i class="fas fa-location-arrow"></i>${khTravelDataArray[i].Add}</a></dd>
+					</dl>
+					<dl class="info">
+						<dt><i class="fas fa-phone-alt"></i>電話</dt>
+						<dd>+${khTravelDataArray[i].Tel}</dd>
+					</dl>
+					<dl class="info">
+						<dt><i class="fas fa-link"></i>相關連結</dt>
+						<dd><a href="https://www.google.com.tw/search?q=${khTravelDataArray[i].Name}" target="_blank"><i class="fas fa-link"></i>相關連結</a></dd>
+					</dl>
+					<dl class="info">
+						<dt><i class="fas fa-bullhorn"></i>備註</dt>
+						<dd>${khTravelDataArray[i].Remarks}</dd>
+					</dl>
+				</div>
+				<div class="head">交通</div>
+				<div class="body">
+				<p>${khTravelDataArray[i].Travellinginfo}</p>
+				<a href="https://maps.google.com/maps?daddr=${khTravelDataArray[i].Py},${khTravelDataArray[i].Px}&amp;hl=zh-tw" target="_blank"><i class="fas fa-location-arrow"></i>可依您的出發地，選擇適合的交通方式 </a>
+				</div>
+			</div>`;
+		}
+	}
+	boxContainerBody.innerHTML = print;
+	// areaAlinkClick()
+	// onScenicItem();
+}
+// [操作]頁數
+function numPage(pagnum) {
+	let pageItem = document.querySelectorAll(".page_num li");
+	// [頁數]樣式
+	for (let i = 0; i < pageItem.length; i++) {
+		if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
+			pageItem[i].classList.add("now");
+		} else if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
+			pageItem[i].classList.add("now");
+		} else {
+			pageItem[i].classList.remove("now");
+		}
+		pageItem[i].addEventListener('click', function (e) {
+			if (e.target.nodeName !== "A") {
+				return;
+			}
+			e.preventDefault();
+			let pagnum = parseInt(e.target.innerHTML);
+			// if(e.target.nodeName === 'A')
+
+			changePage(pagnum);
+		});
+	}
+}
 function weather() {
 	let weatherprint = "";
 	//夏至時間：以2021/7/21為今天
@@ -365,16 +661,13 @@ function weather() {
 						if (weatDayTime === today) {
 							IconTodayprint = complexValue.wticons;
 							ElementValueToday = complexValue.value
-							console.log(complexValue.value.length)
+							// console.log(complexValue.value.length)
 							let lenstr = 40;
 							if (complexValue.value.length > lenstr) {
-								ComplexTodayTprint =
-								`${complexValue.value.substring(0, lenstr)}` +
-								'...<a class="alink" href="#">more</a>';
-								
+								ComplexTodayTprint =`${complexValue.value.substring(0, lenstr)} ...<a class="alink" href="#">more</a>`;
 							} 
-							console.log(ElementValueToday)
-							
+							// TODO:ComplexTodayTprint 建議使用樣板字面值的寫法。
+							// console.log(ElementValueToday)
 						}
 						if (weatDayTime === tomorrow) {
 							IconTomorrowprint = complexValue.wticons;
@@ -419,7 +712,7 @@ function weather() {
 								</dl>
 							</div>`;
 							weatherBox.innerHTML = weatherprint;
-							console.log(ElementValueToday)
+							// console.log(ElementValueToday)
 							let alinkMore = document.querySelector(".weather .alink");
 							let ComplexTodayTtext = document.querySelector(".weather .Complex dd");
 							alinkMore.addEventListener('click', function(){
@@ -436,299 +729,7 @@ function weather() {
 	}
 }
 weather();
-// 對應的區域
-function scenicKHitem(){
-	let scenicKHItem = document.querySelectorAll(".scenic .scenic_item");
-	scenicKHItem.forEach(scenicKHItem => scenicKHItem.addEventListener('click',function(e){
-		console.log()
-		e.preventDefault();
-		if(this.classList[1] === 'randomKh_item'){
-			let randomarea = this.innerText;
-			areaKH(randomarea);
-		}else{
-			// console.log(this.children[0].dataset.name);
-			let scenicName = this.children[0].dataset.name;
-			scenicKH(scenicName);
-			// console.log(scenicKHitem)
-		}
-	}))
-}
-function areaKH(randomarea) {
-	areaTemp = [];
-	// 點擊完判斷區域回傳
-	for (let i = 0; i < khDataLen; i++) {
-		let area = khTravelDataArray[i].Area;
-		if (area === randomarea) {
-			areaTemp.push(khTravelDataArray[i]);
-		}
-	}
-	boxContainer.children[0].textContent = randomarea;
-	formBox.classList.add("areaBox");
-	formBox.classList.remove("newBox");
-	// // 點擊區域渲染
-	changePage(1);
-	pageAverage(areaTemp);
 
-}
-//點擊區域累加次數
-function populararea(popo) {
-
-	// 假設點擊率
-	popularAreaArray[1].frequency = 15;
-	popularAreaArray[2].frequency = 10;
-	popularAreaArray[3].frequency = 30;
-	popularAreaArray[9].frequency = 8030;
-	popularAreaArray[12].frequency = 5630;
-	popularAreaArray[14].frequency = 20;
-	popularAreaArray[15].frequency = 88;
-	popularAreaArray[23].frequency = 50;
-	popularAreaArray[25].frequency = 588;
-	popularAreaArray[28].frequency = 25;
-	popularAreaArray[32].frequency = 65;
-	popularAreaArray[35].frequency = 45;
-	popularAreaArray[37].frequency = 888;
-	// 針對名字排序
-	
-	let frequency = 0;
-	frequency++;
-	
-	for (let i = 0; i < popularAreaArray.length; i++) {
-		// console.log(popo === popularAreaArray[i].area)
-		// console.log(popularAreaArray)
-		if (popo === popularAreaArray[i].area) {
-			popularAreaArray[i]["frequency"] += frequency;
-			popuprint()
-		}
-		
-	}
-}
-
-// [熱門行政區]，點擊率高的區域印出
-function popuprint() {
-	populararea()
-	let popuprintArea = "";
-	for (let i = 0; i < popularAreaArray.length && i < 4; i++) {
-		popularAreaArray = popularAreaArray.sort(function (a, b) {
-			// 針對顯示前八筆的點擊數，依名字排序
-			if(popularAreaArray.length && i < 4){
-				var nameA = a.area.toUpperCase(); // ignore upper and lowercase
-				var nameB = b.area.toUpperCase(); // ignore upper and lowercase
-
-				if (nameA < nameB) {
-				return -1;
-				}
-				if (nameA > nameB) {
-				return 1;
-				}
-			}
-			// 針對數字大小
-			return b.frequency - a.frequency;
-		});
-		
-		popuprintArea += `<li class="areaItem"><a class="btn btn-area" href="#">${popularAreaArray[i].area}</a></li>`;
-	}
-	popularAreas.innerHTML = popuprintArea;
-}
-popuprint()
-
-// 點擊區域
-function areaAlinkClick() {
-	let areaLiAlink = document.querySelectorAll(".nav li");
-	// 針對每一個區域宣告
-	for (let i = 0; i < areaLiAlink.length; i++) {
-		areaLiAlink[i].addEventListener('click', function (e) {
-			// 判斷DOM的結構
-			if (e.target.nodeName !== "A") {
-				return;
-			}
-			e.preventDefault();
-
-			// 在表頭的部分印出
-			formBox.classList.add("areaBox");
-			formBox.classList.remove("newBox");
-
-			boxContainer = document.querySelector(".areaBox .boxcontainer");
-			boxContainer.children[0].textContent = e.target.textContent;
-			areaTemp = [];
-			// 點擊完判斷區域回傳
-			for (let i = 0; i < khDataLen; i++) {
-				let area = khTravelDataArray[i].Area;
-				if (area === e.target.textContent) {
-					areaTemp.push(khTravelDataArray[i]);
-				}
-			}
-			let popo = e.target.textContent;
-			populararea(popo);
-			// 點擊區域渲染
-			changePage(1);
-			pageAverage(areaTemp);
-		});
-	}
-	
-}
-areaAlinkClick();
-
-// 判斷結構
-function reBoxprint() {
-	if (boxContainerBody.children[0].nodeName !== "UL") {
-		boxContainerBody.innerHTML = `<ul class="scenic"></ul>`;
-	}
-	boxContainerFoot.innerHTML = `<div class="pagebox">
-	<div class="page_pre"><a href="#"><i class="fas fa-angle-left"></i></a></div>
-	<ul class="page_num"></ul>
-	<div class="page_next"><a href="#"><i class="fas fa-angle-right"></i></a></div>
-	</div>`;
-
-	// 判斷結構回傳function
-	if (boxContainer.classList[1] === "newbox") {
-		newKH();
-	} else if (scenicItem.nodeName === "UL") {
-		changePage(1);
-	} else if (pageBox.nodeName === "DIV") {
-		pageAverage(areaTemp);
-	}
-}
-// 印出區域資料
-function printData(pageitemPint) {
-	if (boxContainerBody.children[0].nodeName !== "UL") {
-		reBoxprint();
-	}
-	let print = "";
-	for (let i = 0; i < pageitemPint.length; i++) {
-		let ketwordTimg = pageitemPint[i].Opentime;
-		// 關鍵字取代
-		let ketword1 = ["全天候開放"];
-		for (let j = 0; j < 10; j++) {
-			if (ketwordTimg.indexOf(ketword1[j]) !== -1) {
-				ketwordTimg = ketword1[0];
-			} else if (ketwordTimg.length > 40) {
-				ketwordTimg = "詳請景點內介紹";
-			}
-		}
-		let ketwordName = pageitemPint[i].Name;
-		ketwordName = ketwordName.replace(
-			/[\ |\~|\~|\`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\-|\_|\ |\=|\||\\|\[|\]|\{|\}|\;|\:|\”|\’|\,|\<|\.|\>|\/|\?]/g,
-			""
-		);
-		// 點擊回傳
-		print += `<li class="scenic_item">
-			<a href="#" data-name='${pageitemPint[i].Name}'>
-				<div class="scenic_warp">
-					<figure>
-						<figcaption><div class="scenic_title"><div class="title">${ketwordName}</div></div><span class="scenic_area">${pageitemPint[i].Area}</span></figcaption>
-						<img src="${pageitemPint[i].Picture1}" alt="${pageitemPint[i].Picdescribe1}" title="${pageitemPint[i].Name}">
-					</figure>
-					<div class="box">
-						<div class="head"><i class="fas fa-crosshairs"></i>${pageitemPint[i].Name}</div>
-						<div class="body">
-							<ul>
-								<li>${ketwordTimg}</li>
-								<li class="toldescribe">${pageitemPint[i].Toldescribe}</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</a>
-		</li>`;
-	}
-
-	scenicItem.innerHTML = print;
-
-	scenicKHitem()
-}
-
-// 單個景點資料
-function scenicKH(scenicName) {
-	formBox.classList.add("scenicBox");
-	formBox.classList.remove("areaBox", "scenicBox");
-	formBox.classList.remove("foot");
-	boxContainerFoot.style.display = "none";
-	let print = "";
-	for (let i = 0; i < khDataLen; i++) {
-		let name = khTravelDataArray[i].Name;
-		if (name === scenicName) {
-			boxContainer.children[0].textContent = khTravelDataArray[i].Name;
-			print += `<div class="info_box img_box">
-				
-				<div class="head"><i class="fas fa-info-circle"></i>景點介紹</div>
-				<div class="body">
-					<p>${khTravelDataArray[i].Toldescribe}</p>
-					<figure>
-						<img src="${khTravelDataArray[i].Picture1}" alt="${khTravelDataArray[i].Picdescribe1}" title="${khTravelDataArray[i].Name}">
-						<figcaption><i class="fas fa-images"></i>${khTravelDataArray[i].Picdescribe1}</figcaption>
-					</figure>
-				</div>
-				
-			</div>
-			<div class="info_box">
-				<div class="area_box">
-					<a href="#"><i class="fas fa-chevron-circle-left"></i><span class="title">${khTravelDataArray[i].Area}</span></a>
-					<div class="info_box img_box"><img class="khTravelDataArray" src="https://khh.travel/content/images/content/region/region-map-${khTravelDataArray[i].Zipcode}.png" alt="${khTravelDataArray[i].Area}" title="${khTravelDataArray[i].Area}"></div>
-				</div>
-				
-				<div class="head">相關資訊</div>
-				<div class="body">
-					<dl class="info">
-						<dt><i class="fas fa-clock"></i>營業時間</dt>
-						<dd>${khTravelDataArray[i].Opentime}</dd>
-					</dl>
-					<dl class="info">
-						<dt><i class="fas fa-map-marker-alt"></i>地址</dt>
-						<dd><a href="https://www.google.com.tw/maps/place/${khTravelDataArray[i].Py},${khTravelDataArray[i].Px}" target="_blank"><i class="fas fa-location-arrow"></i>${khTravelDataArray[i].Add}</a></dd>
-					</dl>
-					<dl class="info">
-						<dt><i class="fas fa-phone-alt"></i>電話</dt>
-						<dd>+${khTravelDataArray[i].Tel}</dd>
-					</dl>
-					<dl class="info">
-						<dt><i class="fas fa-link"></i>相關連結</dt>
-						<dd><a href="https://www.google.com.tw/search?q=${khTravelDataArray[i].Name}" target="_blank"><i class="fas fa-link"></i>相關連結</a></dd>
-					</dl>
-					<dl class="info">
-						<dt><i class="fas fa-bullhorn"></i>備註</dt>
-						<dd>${khTravelDataArray[i].Remarks}</dd>
-					</dl>
-				</div>
-				<div class="head">交通</div>
-				<div class="body">
-				<p>${khTravelDataArray[i].Travellinginfo}</p>
-				<a href="https://maps.google.com/maps?daddr=${khTravelDataArray[i].Py},${khTravelDataArray[i].Px}&amp;hl=zh-tw" target="_blank"><i class="fas fa-location-arrow"></i>可依您的出發地，選擇適合的交通方式 </a>
-				</div>
-			</div>`;
-		}
-	}
-	boxContainerBody.innerHTML = print;
-	let titleAreaClick = document.querySelector(".title");
-	let titleArea = titleAreaClick.textContent;
-	titleAreaClick.addEventListener('click', function (e) {
-		e.preventDefault();
-		areaKH(titleArea);
-	});
-}
-// [操作]頁數
-function numPage(pagnum) {
-	let pageItem = document.querySelectorAll(".page_num li");
-	// [頁數]樣式
-	for (let i = 0; i < pageItem.length; i++) {
-		if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
-			pageItem[i].classList.add("now");
-		} else if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
-			pageItem[i].classList.add("now");
-		} else {
-			pageItem[i].classList.remove("now");
-		}
-		pageItem[i].addEventListener('click', function (e) {
-			if (e.target.nodeName !== "A") {
-				return;
-			}
-			e.preventDefault();
-			let pagnum = parseInt(e.target.innerHTML);
-			// if(e.target.nodeName === 'A')
-
-			changePage(pagnum);
-		});
-	}
-}
 
 // 總數／頁數
 function pageAverage() {
@@ -827,28 +828,26 @@ function changePage(pagnum) {
 			pagesAll.pageAddFirst + pagesAll.pageAdd + pagesAll.pageAddLast;
 	}
 	numPage(pagnum);
-	// pagePre(pagnum)
-	// pageNext(pagnum)
-
 	pagePre.addEventListener('click', prevPage, false);
 	pageNext.addEventListener('click', nextPage, false);
 }
 
+// TODO:函式 pageAdd、pageAddFirst、pageAddLast 的變數 pagetabs 建議使用樣板字面值的寫法。
 function pageAdd(startPage, endPage) {
 	let pagetabs = "";
 	for (let i = startPage; i < endPage; i++) {
-		pagetabs += '<li><a href="#">' + i + "</a></li>";
+		pagetabs += `<li><a href="#">${i}</a></li>`;
 	}
 	pagesAll["pageAdd"] = pagetabs;
 }
 function pageAddFirst() {
 	let pagetabs = "";
-	pagetabs += '<li><a href="#">1</a></li><li>...</li>';
+	pagetabs += `<li><a href="#">1</a></li><li>...</li>`;
 	pagesAll["pageAddFirst"] = pagetabs;
 }
 function pageAddLast() {
 	let pagetabs = "";
-	pagetabs += '<li>...</li><li><a href="#">' + pageAverage() + "</a></li>";
+	pagetabs += `<li>...</li><li><a href="#">${pageAverage()}</a></li>`;
 	pagesAll["pageAddLast"] = pagetabs;
 }
 function pagefinish() {

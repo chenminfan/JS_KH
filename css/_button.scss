@@ -14,11 +14,13 @@
     border: 1px solid $color_primary;
   }
 }
-.hotItem {
+.navArea {
+  .btn-area {
+    padding: 6px 34px;
+  }
+}
+.hotArea {
   .areaItem {
-    .btn-area {
-      padding: 6px 34px;
-    }
     &:nth-child(4n + 1) {
       a {
         background: $color_purpleli;
@@ -120,7 +122,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .hotItem .areaItem .btn-area {
-    padding: 10px;
+  .navArea .areaItem {
+    width: calc(100% / 4 - 16px);
   }
 }

@@ -93,7 +93,7 @@ function areaFilter() {
 		popularAreaArray.push({ area: areaArray[i], frequency: 0 });
 	}
 	navArea.innerHTML = printArea;
-	
+
 }
 areaFilter();
 
@@ -108,14 +108,14 @@ function newKH() {
 	// 區域
 	boxContainer .children[0].textContent = "區域觀光遊高雄";
 	weatherBox.style.display = "block";
-	
+
 	if (boxContainerFoot.style.display !== "none") {
 		boxContainerFoot.style.display = "none";
 	}
 	if (boxContainerBody.children[0].nodeName !== "UL") {
 		return reBoxprint();
 	}
-	
+
 	if (scenicItem === scenicItem) {
 		// 給新的陣列
 		let randomKh = [];
@@ -133,7 +133,7 @@ function newKH() {
 		let randomKhResult = randomKh.filter((item) =>
 		!set.has(item.Area) ? set.add(item.Area) : false
 		);
-		
+
 		// 印出
 		let print = "";
 		let randomKhLen = randomKhResult.length;
@@ -152,12 +152,12 @@ function newKH() {
 			scenicItem.innerHTML = print;
 		}
 		onScenicItem();
-		
+
 	}
 }
 newKH();
 
-
+//區域切換class
 function areaKH(randomarea) {
 	areaTemp = [];
 	// 點擊完判斷區域回傳
@@ -205,11 +205,11 @@ function popularHotArea(popo) {
 		if (popo === popularAreaArray[i].area) {
 			popularAreaArray[i]["frequency"] += frequencyAdd;
 		}
-		
+
 	}
 }
 
-// [熱門行政區]，點擊率高的區域印出
+// 熱門行政區，點擊率高的區域印出
 function hotPrint() {
 	popularHotArea();
 	// console.log(popularAreaArray)
@@ -231,12 +231,13 @@ function hotPrint() {
 			// 針對數字大小
 			return b.frequency - a.frequency;
 		});
-		
+
 		hotprintArea += `<div class="areaItem hotAreaItem"><a class="btn btn-hot" href="#">${popularAreaArray[i].area}</a></div>`;
 	}
 	hotArea.innerHTML = hotprintArea;
 }
 hotPrint();
+
 // 點擊區域
 function areaAlinkClick() {
 	// 針對每一個區域宣告
@@ -249,7 +250,7 @@ function areaAlinkClick() {
 				return;
 			}
 			e.preventDefault();
-			
+
 
 			// 在表頭的部分印出
 			formBox.classList.add("areaBox");
@@ -269,40 +270,41 @@ function areaAlinkClick() {
 			popularHotArea(popo);
 			// 點擊區域渲染
 			changePage(1);
-			
+
 			pageAverage(areaTemp);
-			
+
 		});
 	}
-	
+
 }
 areaAlinkClick();
+
 // 判斷結構
 function reBoxprint() {
 	// 判斷結構回傳function
 	// if (boxContainerBody.children[0].nodeName !== "UL"){
 	// 	boxContainerBody.innerHTML = `<ul class="scenic"></ul>`;
-	// }else 
+	// }else
 	if (boxContainer.classList[1] === "newbox") {
 		newKH();
 	} else if (scenicItem.nodeName === "UL") {
 		changePage(1);
 	} else if (pageBox.nodeName === "DIV") {
 		pageAverage(areaTemp);
-	} 
+	}
 	boxContainerFoot.innerHTML = `<div class="pagebox">
 		<div class="page_pre"><a href="#"><i class="fas fa-angle-left"></i></a></div>
 		<ul class="page_num"></ul>
 		<div class="page_next"><a href="#"><i class="fas fa-angle-right"></i></a></div>
 	</div>`;
 
-	
+
 }
 
-// 對應的區域
+// 點擊區域
 // TODO:不建議函式、變數、參數使用相同名稱，導致增加維護上的困難度。
 function onScenicItem(){
-	
+
 	let scenicKHItem = document.querySelectorAll(".scenic .scenic_item");
 	scenicKHItem.forEach(scenicKHItem => scenicKHItem.addEventListener('click',function(e){
 		e.preventDefault();
@@ -316,6 +318,7 @@ function onScenicItem(){
 		}
 	}))
 }
+
 // 印出區域資料
 function printData(pageitemPint) {
 	if (boxContainerBody.children[0].nodeName !== "UL") {
@@ -340,7 +343,7 @@ function printData(pageitemPint) {
 			""
 		);
 		// 點擊回傳
-		print += 
+		print +=
 		`<li class="scenic_item">
 			<a href="#" data-name='${pageitemPint[i].Name}'>
 				<div class="scenic_warp">
@@ -366,7 +369,7 @@ function printData(pageitemPint) {
 	onScenicItem();
 }
 
-// 單個景點資料
+// 印出景點資料
 function scenicKH(scenicName) {
 	formBox.classList.add("scenicBox");
 	formBox.classList.remove("areaBox", "scenicBox");
@@ -386,14 +389,14 @@ function scenicKH(scenicName) {
 						<figcaption><i class="fas fa-images"></i>${khTravelDataArray[i].Picdescribe1}</figcaption>
 					</figure>
 				</div>
-				
+
 			</div>
 			<div class="info_box">
 				<div class="area_box">
 					<a href="#"><i class="fas fa-chevron-circle-left"></i><span class="title">${khTravelDataArray[i].Area}</span></a>
 					<div class="info_box img_box"><img class="khTravelDataArray" src="https://khh.travel/content/images/content/region/region-map-${khTravelDataArray[i].Zipcode}.png" alt="${khTravelDataArray[i].Area}" title="${khTravelDataArray[i].Area}"></div>
 				</div>
-				
+
 				<div class="head">相關資訊</div>
 				<div class="body">
 					<dl class="info">
@@ -429,30 +432,7 @@ function scenicKH(scenicName) {
 	// areaAlinkClick()
 	// onScenicItem();
 }
-// [操作]頁數
-function numPage(pagnum) {
-	let pageItem = document.querySelectorAll(".page_num li");
-	// [頁數]樣式
-	for (let i = 0; i < pageItem.length; i++) {
-		if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
-			pageItem[i].classList.add("now");
-		} else if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
-			pageItem[i].classList.add("now");
-		} else {
-			pageItem[i].classList.remove("now");
-		}
-		pageItem[i].addEventListener('click', function (e) {
-			if (e.target.nodeName !== "A") {
-				return;
-			}
-			e.preventDefault();
-			let pagnum = parseInt(e.target.innerHTML);
-			// if(e.target.nodeName === 'A')
-
-			changePage(pagnum);
-		});
-	}
-}
+// 天氣資料
 function weather() {
 	let weatherprint = "";
 	//夏至時間：以2021/7/21為今天
@@ -493,12 +473,12 @@ function weather() {
 			weatherBox.innerHTML = weatherprint;
 			let weatkh = weatherLocation[i].weatherElement;
 			let weatkhLen = weatkh.length;
-			
+
 			for (let j = 0; j < weatkhLen; j++) {
 				if (weatkh[j].elementName === "MinT") {
 					let weatDay = weatkh[j].time;
 					let weatDayTLen = weatDay.length;
-					
+
 
 					for (let k = 0; k < weatDayTLen; k++) {
 						let weatDayTime = weatDay[k].endTime.substr(5, 5);
@@ -520,7 +500,7 @@ function weather() {
 				if (weatkh[j].elementName === "MaxT") {
 					let weatDay = weatkh[j].time;
 					let weatDayTLen = weatDay.length;
-					
+
 
 					for (let k = 0; k < weatDayTLen; k++) {
 						// let weatDayTime = weatDay[k].endTime<weatDay[k].endTime  ? + weatDay[k].endTime :weatDay[k].endTime
@@ -544,8 +524,8 @@ function weather() {
 				if (weatkh[j].elementName === "UVI") {
 					let weatDay = weatkh[j].time;
 					let weatDayTLen = weatDay.length;
-					
-					
+
+
 
 					for (let k = 0; k < weatDayTLen; k++) {
 						let weatDayTime = weatDay[k].endTime.substr(5, 5);
@@ -555,14 +535,14 @@ function weather() {
 							ExposureTodayTprint += `${UVIValue[1].value}`;
 						}
 					}
-					
+
 				}
 
 				if (weatkh[j].elementName === "WeatherDescription") {
 					let weatDay = weatkh[j].time;
 					let weatDayTLen = weatDay.length;
-					
-					
+
+
 					ComplexTitleprint += `${weatkh[j].description}`;
 
 					for (let k = 0; k < weatDayTLen; k++) {
@@ -665,7 +645,7 @@ function weather() {
 							let lenstr = 40;
 							if (complexValue.value.length > lenstr) {
 								ComplexTodayTprint =`${complexValue.value.substring(0, lenstr)} ...<a class="alink" href="#">more</a>`;
-							} 
+							}
 							// TODO:ComplexTodayTprint 建議使用樣板字面值的寫法。
 							// console.log(ElementValueToday)
 						}
@@ -675,7 +655,7 @@ function weather() {
 						if (weatDayTime === acquired) {
 							IconAcquiredprint = complexValue.wticons;
 						}
-						
+
 						weatherprint = `
 							<div class="title">${weatherLocation[i].locationName}天氣預報</div>
 							<div class="container">
@@ -723,13 +703,37 @@ function weather() {
 					}
 				}
 			}
-			
-			
+
+
 		}
 	}
 }
 weather();
 
+// [操作]頁數
+function numPage(pagnum) {
+	let pageItem = document.querySelectorAll(".page_num li");
+	// [頁數]樣式
+	for (let i = 0; i < pageItem.length; i++) {
+		if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
+			pageItem[i].classList.add("now");
+		} else if (pagnum === parseFloat(pageItem[i].childNodes[0].innerHTML)) {
+			pageItem[i].classList.add("now");
+		} else {
+			pageItem[i].classList.remove("now");
+		}
+		pageItem[i].addEventListener('click', function (e) {
+			if (e.target.nodeName !== "A") {
+				return;
+			}
+			e.preventDefault();
+			let pagnum = parseInt(e.target.innerHTML);
+			// if(e.target.nodeName === 'A')
+
+			changePage(pagnum);
+		});
+	}
+}
 
 // 總數／頁數
 function pageAverage() {
@@ -831,7 +835,6 @@ function changePage(pagnum) {
 	pagePre.addEventListener('click', prevPage, false);
 	pageNext.addEventListener('click', nextPage, false);
 }
-
 // TODO:函式 pageAdd、pageAddFirst、pageAddLast 的變數 pagetabs 建議使用樣板字面值的寫法。
 function pageAdd(startPage, endPage) {
 	let pagetabs = "";
